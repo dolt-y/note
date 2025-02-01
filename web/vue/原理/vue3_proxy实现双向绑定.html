@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向数据绑定示例</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="inputField" placeholder="输入内容">
+        <p id="displayField"></p>
+    </div>
+
+    <script>
+        // 定义一个对象来存储数据
+        const data = {
+            text: ''
+        };
+
+        // 使用 Proxy 实现数据劫持
+        const proxyData = new Proxy(data, {
+            get(target, prop) {
+                return target[prop];
+            },
+            set(target, prop, value) {
+                if (target[prop] !== value) {
+                    target[prop] = value;
+                    // 更新输入框的值
+                    document.getElementById('inputField').value = value;
+                    // 更新显示区域的值
+                    document.getElementById('displayField').innerText = value;
+                }
+                return true;
+            }
+        });
+
+        // 初始化数据
+        proxyData.text = '';
+
+        // 监听输入框的输入事件
+        document.getElementById('inputField').addEventListener('input', function(event) {
+            proxyData.text = event.target.value;
+        });
+    </script>
+</body>
+</html>

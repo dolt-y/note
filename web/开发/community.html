@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零浪费生活论坛</title>
+    <style>
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 导航栏样式 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffcc00;
+        }
+
+        /* 社区内容样式 */
+        .community-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 80px 20px 20px 20px; /* 调整padding以确保内容不被导航栏遮挡 */
+            flex: 1;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .user-info,
+        .post-list-container,
+        .post-form {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-info h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .user-info p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .forum-section {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .post-list-container {
+            flex: 1;
+            overflow-y: auto; /* 使帖子列表可滚动 */
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .post-item {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .post-item:last-child {
+            border-bottom: none;
+        }
+
+        .post-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .post-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .post-form h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .post-form input,
+        .post-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .post-form button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .post-form button:hover {
+            background: linear-gradient(135deg, #8BC34A, #4CAF50);
+            transform: translateY(-3px);
+        }
+
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            color: #fff;
+            margin-top: auto; /* 确保页脚始终位于底部 */
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .forum-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">零浪费生活论坛</div>
+        <ul class="nav-links">
+            <li><a href="毕设初步效果.html">返回主页</a></li>
+        </ul>
+    </header>
+
+    <div class="community-container">
+        <div class="content-wrapper">
+            <!-- 用户个人信息 -->
+            <div class="user-info">
+                <h2>用户个人信息</h2>
+                <p>用户名：张三</p>
+                <p>积分：120</p>
+                <p>等级：环保达人</p>
+            </div>
+
+            <!-- 论坛交流社区 -->
+            <div class="forum-section">
+                <div class="post-list-container">
+                    <div class="post-list">
+                        <!-- 示例帖子 -->
+                        <div class="post-item">
+                            <h3>标题：减少塑料使用的小技巧</h3>
+                            <p>内容：分享一些日常生活中减少塑料使用的小技巧，比如使用可重复使用的购物袋、水杯等。</p>
+                        </div>
+                        <div class="post-item">
+                            <h3>标题：厨余垃圾堆肥经验分享</h3>
+                            <p>内容：分享一些厨余垃圾堆肥的经验，如何制作堆肥桶，以及堆肥后的用途等。</p>
+                        </div>
+                        <!-- 可以添加更多帖子 -->
+                    </div>
+                </div>
+
+                <!-- 发帖表单 -->
+                <div class="post-form">
+                    <h3>发表新帖子</h3>
+                    <input type="text" placeholder="标题">
+                    <textarea placeholder="内容"></textarea>
+                    <button>发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 零浪费生活指南. 版权所有.</p>
+    </footer>
+</body>
+</html>
