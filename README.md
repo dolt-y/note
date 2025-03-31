@@ -5,20 +5,16 @@
 
 本篇文章将总结我在学习前端过程中的笔记，希望能对你有所帮助。
 ##  目录
+
 ```
 note
 ├─ H5和app
+├─ README.md
 ├─ git
 │  └─ git常用命令总结.md
+├─ miniApp
+│  └─ info.md
 ├─ mysql
-├─ mysql8
-│  ├─ .keep
-│  ├─ community.sql
-│  ├─ community_comment.sql
-│  ├─ community_like_record.sql
-│  ├─ content.sql
-│  ├─ history_session.sql
-│  └─ user.sql
 ├─ node
 │  └─ 介绍.md
 ├─ web
@@ -26,10 +22,7 @@ note
 │  │  ├─ json扁平化.js
 │  │  ├─ js数组扁平化.js
 │  │  ├─ 实现数组去重.js
-│  │  ├─ 实现栈.js
 │  │  ├─ 找出数组元素重复最多.js
-│  │  ├─ 排序
-│  │  │  └─ 快速排序.js
 │  │  ├─ 深拷贝.js
 │  │  └─ 直接复制or浅拷贝.js
 │  ├─ vue
@@ -70,22 +63,17 @@ note
 │  │     ├─ 闭包.js
 │  │     └─ 防抖节流.js
 │  ├─ 开发
-│  │  ├─ community.html
-│  │  ├─ img
-│  │  │  ├─ bk.jpg
-│  │  │  ├─ bk2.jpg
-│  │  │  ├─ bk4.jpg
-│  │  │  ├─ bk6.png
-│  │  │  └─ 论坛.html
-│  │  ├─ rain.js
-│  │  ├─ 指南.html
-│  │  ├─ 毕设初步效果.html
-│  │  ├─ 视频通话_发送端.html
-│  │  └─ 视频通话_接收端.html
 │  ├─ 浏览器
 │  │  ├─ ifame标签.md
 │  │  ├─ image-1.png
 │  │  ├─ webworker.js
+│  │  ├─ 前后端通讯
+│  │  │  ├─ SSE
+│  │  │  ├─ http协议
+│  │  │  │  └─ info.md
+│  │  │  └─ socket
+│  │  │     ├─ 视频通话_发送端.html
+│  │  │     └─ 视频通话_接收端.html
 │  │  ├─ 浏览器渲染原理.md
 │  │  ├─ 缓存
 │  │  │  └─ 缓存数据.md
@@ -94,7 +82,11 @@ note
 │  └─ 设计模式
 │     ├─ 单例.js
 │     └─ 发布订阅模式.js
-├─ 介绍.md
-└─ 小程序
+├─ 数据结构
+│  ├─ info.md
+│  ├─ 排序
+│  └─ 栈
+│     └─ Stack.js
+└─ 面向对象
 
 ```
