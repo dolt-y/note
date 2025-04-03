@@ -1,11 +1,10 @@
-// 深拷贝 适合对象中只包含基本数据类型 复制对象，而不是对象的引用
+/* 深拷贝 --JSON序列化  缺陷:function,undefined,symbol类型会丢失,无法处理循环引用  **/
 function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
 const original = { a: 1, b: { c: 2 }, d: [3, 4] };
 const copied = deepCopy(original);
-// 递归实现深拷贝
-
+/**深拷贝--递归 适用大多数场景*/
 function deepCopy_recursive(obj) {
     if (typeof obj!== 'object' || obj === null) {
         return obj;
