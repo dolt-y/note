@@ -1,15 +1,9 @@
-//原型链
-function dog(name) {
-    this.name = name;
-    this.bark = function() {
-        console.log(this.name + " 小狗!")}
-}
-function animal(name) {
-    this.name = name;
-    this.eat = function() {
-        console.log(this.name + " 正在吃东西...")}
-}
-dog.prototype = new animal("动物");
-let myDog = new dog("旺财");
-myDog.bark(); // 旺财 小狗!
-myDog.eat(); // 旺财 正在吃东西...
+/** 原型链 */
+
+/*一 原型链
+
+原型链是一种重要的面向对象技术，它是JavaScript中最常用的继承方式。
+
+在JavaScript中，每个函数都有一个内置的属性叫做prototype，这个属性是一个对象，包含了函数的原型。
+当我们创建了一个新对象时，这个对象的__proto__属性指向它的构造函数的prototype属性，也就是说，这个对象的原型就是构造函数的原型。*/
+
