@@ -16,7 +16,6 @@ class  Person{
 const person1 = new Person("John", 25);
 person1.sayHello(); // Output: Hello, my name is John and I am 25 years old.
 Person.sayBye(); // Output: Goodbye!
-
 /** 继承 */
 class Student extends Person{
 

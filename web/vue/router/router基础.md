@@ -9,4 +9,8 @@ Vue Router 基于 Vue 的组件系统构建，你可以通过配置路由来告�
 不同于常规的 a 标签，我们使用组件 RouterLink 来创建链接。这使得 Vue Router 能够在不重新加载页面的情况下改变 URL，处理 URL 的生成、编码和其他功能。我们将会在之后的部分深入了解 RouterLink 组件。
 
 RouterView 组件可以使 Vue Router 知道你想要在哪里渲染当前 URL 路径对应的路由组件。它不一定要在 App.vue 中，你可以把它放在任何地方，但它需要在某处被导入，否则 Vue Router 就不会渲染任何东西。
-  
+
+router 和 route 属性区别
+
+1. router: 一个 Vue Router 实例，包含了路由的配置和方法。
+2. route: 当前激活的路由对象，包含了当前路由的路径、参数、匹配的路由组件等信息。

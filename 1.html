@@ -1,20 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Console Table Example</title>
+  <meta charset="UTF-8">
+  <title>高级感歌词播放页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #181c2b 0%, #232946 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+      overflow: hidden;
+    }
+    .glass-container {
+      background: rgba(30, 30, 40, 0.45);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 0 0 2px rgba(255,255,255,0.08) inset;
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-radius: 28px;
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      padding: 44px 36px 32px 36px;
+      width: 420px;
+      max-width: 92vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: visible;
+    }
+    .song-title {
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px #0008, 0 0 24px #fff2;
+      background: linear-gradient(90deg, #fff 60%, #7ed6df 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .artist {
+      color: #b0b8d1;
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 6px #0006;
+    }
+    .lyrics {
+      width: 100%;
+      height: 220px;
+      overflow-y: auto;
+      position: relative;
+      margin-bottom: 28px;
+      scroll-behavior: smooth;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 100%);
+      border-radius: 1.2em;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12) inset;
+      padding: 0.5em 0;
+    }
+    .lyric-line {
+      color: #fff;
+      font-size: 1.18rem;
+      line-height: 2.2;
+      opacity: 0.32;
+      text-align: center;
+      transition: 
+        opacity 0.4s cubic-bezier(.4,2.3,.3,1),
+        font-size 0.4s cubic-bezier(.4,2.3,.3,1),
+        filter 0.4s,
+        font-weight 0.3s;
+      will-change: opacity, font-size, filter;
+      filter: blur(1.2px);
+      user-select: none;
+      pointer-events: none;
+    }
+    .lyric-line.active {
+      opacity: 1;
+      font-size: 1.7rem;
+      font-weight: bold;
+      filter: none;
+      background: linear-gradient(90deg, #fff 40%, #7ed6df 60%, #f9ca24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 16px #fff6, 0 0 32px #f9ca2440, 0 0 8px #7ed6df80;
+      letter-spacing: 0.08em;
+      user-select: text;
+      pointer-events: auto;
+    }
+    .controls {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%);
+      border: none;
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      color: #fff;
+      font-size: 1.7rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      outline: none;
+      backdrop-filter: blur(2px);
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #7ed6df44 0%, #f9ca2444 100%);
+      transform: scale(1.12);
+      box-shadow: 0 4px 24px #f9ca2440, 0 0 8px #7ed6df80;
+    }
+  </style>
 </head>
-
 <body>
-    <script>
-        console.log('This is a log message'); // 普通日志
-        console.info('This is an info message'); // 信息性消息
-        console.warn('This is a warning message'); // 警告信息
-        console.error('This is an error message'); // 错误信息
-        console.debug('This is a debug message'); // 调试信息
-    </script>
-</body>
+  <div class="glass-container">
+    <div class="song-title">夜空中最亮的星</div>
+    <div class="artist">逃跑计划</div>
+    <div class="lyrics" id="lyrics"></div>
+    <div class="controls">
+      <button class="btn" id="prevBtn">&#9664;</button>
+      <button class="btn" id="playBtn">&#9654;</button>
+      <button class="btn" id="nextBtn">&#9654;&#9654;</button>
+    </div>
+  </div>
+  <script>
+    // 示例歌词（可替换为任意歌词）
+    const lyricLines = [
+      "夜空中最亮的星，能否听清",
+      "那仰望的人，心底的孤独和叹息",
+      "夜空中最亮的星，能否记起",
+      "曾与我同行，消失在风里的身影",
+      "",
+      "我祈祷拥有一颗透明的心灵",
+      "和会流泪的眼睛",
+      "给我再去相信的勇气",
+      "越过谎言去拥抱你",
+      "",
+      "每当我找不到存在的意义",
+      "每当我迷失在黑夜里",
+      "夜空中最亮的星",
+      "请指引我靠近你"
+    ];
 
+    let currentLine = 0;
+    let playing = false;
+    let interval = null;
+
+    const lyricsDiv = document.getElementById('lyrics');
+
+    function renderLyrics() {
+      lyricsDiv.innerHTML = '';
+      for (let i = 0; i < lyricLines.length; i++) {
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'lyric-line' + (i === currentLine ? ' active' : '');
+        lineDiv.textContent = lyricLines[i];
+        lyricsDiv.appendChild(lineDiv);
+      }
+      // 歌词滚动：让高亮行始终居中
+      const lineHeight = 40; // 近似每行高度
+      const containerHeight = lyricsDiv.clientHeight;
+      const scrollTo = Math.max(0, (currentLine * lineHeight) - (containerHeight / 2) + (lineHeight / 2));
+      lyricsDiv.scrollTo({ top: scrollTo, behavior: 'smooth' });
+    }
+
+    function play() {
+      if (playing) return;
+      playing = true;
+      document.getElementById('playBtn').innerHTML = '&#10073;&#10073;'; // pause icon
+      interval = setInterval(() => {
+        if (currentLine < lyricLines.length - 1) {
+          currentLine++;
+          renderLyrics();
+        } else {
+          pause();
+        }
+      }, 2000);
+    }
+
+    function pause() {
+      playing = false;
+      document.getElementById('playBtn').innerHTML = '&#9654;'; // play icon
+      clearInterval(interval);
+    }
+
+    function prev() {
+      if (currentLine > 0) {
+        currentLine--;
+        renderLyrics();
+      }
+    }
+
+    function next() {
+      if (currentLine < lyricLines.length - 1) {
+        currentLine++;
+        renderLyrics();
+      }
+    }
+
+    document.getElementById('playBtn').onclick = function() {
+      if (playing) pause();
+      else play();
+    };
+    document.getElementById('prevBtn').onclick = function() {
+      prev();
+    };
+    document.getElementById('nextBtn').onclick = function() {
+      next();
+    };
+
+    renderLyrics();
+  </script>
+</body>
 </html>
