@@ -160,4 +160,16 @@ value = 42; // 合法
 let message = "Hello, TypeScript!"; // TypeScript 推断 message 的类型为 string
 ```
 
+## interface vs type
+
 ```
+| 特性           | interface | type    |
+| ------------ | --------- | ------- |
+| 定义对象         | ✅         | ✅       |
+| 定义函数         | ✅         | ✅       |
+| 泛型支持         | ✅         | ✅       |
+| 扩展方式         | `extends` | `&`     |
+| 声明合并         | ✅         | ❌       |
+| 定义联合/元组/条件类型 | ❌         | ✅       |
+| class 实现     | ✅         | ❌       |
+| 可读性/语义       | 更像面向对象    | 更像别名/组合 |

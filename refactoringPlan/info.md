@@ -28,3 +28,7 @@
 - 项目描述 基于uni-app+node.js的ai小程序
 
 - 优先级：高
+
+## 后续攻克重点 小程序、H5、APP
+
+### uniapp futter react
