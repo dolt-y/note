@@ -1,38 +1,141 @@
-# Forge 🛠️
+# 前端构建工具 vite vs webpack
 
-> 前端构建工具笔记（Webpack / Vite）
+1. 核心概念 
 
-## 概览
+| 特性   | Webpack                                    | Vite                                  |
+| ---- | ------------------------------------------ | ------------------------------------- |
+| 构建类型 | 打包构建（bundle-based）                         | 原生 ES 模块开发 + 打包（dev server 快速启动）      |
+| 构建模式 | 单线程打包，可用 `thread-loader` 或 `parallel` 插件优化 | 原生 ESM + Rollup 打包，开发模式无需打包           |
+| 入口文件 | 通过 `entry` 指定                              | 默认 `index.html` 或 `main.js`/`main.ts` |
+| 输出文件 | `output` 指定 `filename` 和 `path`            | `build.outDir` 默认 `dist`              |
+| 热更新  | HMR 通过 WebSocket 实现                        | 原生 ESM + HMR，几乎瞬时刷新                   |
 
-这个目录用于记录现代前端构建工具的知识点、配置经验和最佳实践。你可以在这里整理：
+2. 配置结构
 
-- **Webpack**：模块打包、loader、plugin、优化、tree-shaking、HMR 等。
-- **Vite**：快速构建、ES 模块、插件系统、开发服务器、生产环境优化。
-- **通用概念**：代码拆分、缓存策略、环境变量、静态资源管理。
-- **脚本与自动化**：npm / yarn 脚本、构建命令和部署流程。
+Webpack 配置结构
 
-## 推荐目录结构
+```js
+module.exports = {
+  entry: './src/main.js',      // 入口
+  output: {                     // 输出
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+  module: {                     // 模块处理
+    rules: [
+      { test: /\.js$/, use: 'babel-loader' },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+    ]
+  },
+  plugins: [                    // 插件
+    new HtmlWebpackPlugin({ template: './index.html' })
+  ],
+  resolve: {                    // 解析
+    extensions: ['.js', '.ts', '.vue']
+  },
+  devServer: {                  // 开发服务器
+    port: 8080,
+    hot: true,
+  },
+  mode: 'development'
+}
+```
 
-bundler/
-├─ webpack/
-│ ├─ basics.md # 基础知识
-│ ├─ loaders-plugins.md # Loader 和 Plugin
-│ └─ optimization.md # 构建优化
-├─ vite/
-│ ├─ basics.md # 基础知识
-│ ├─ plugins.md # 插件系统
-│ └─ performance.md # 性能优化
-├─ common/
-│ ├─ env-variables.md # 环境变量
-│ ├─ caching.md # 缓存策略
-│ └─ deployment.md # 部署流程
-└─ README.md
+Vite 配置结构
 
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
-## 目的
+export default defineConfig({
+  plugins: [vue()],
+  server: {
+    port: 3000,
+    open: true,
+    proxy: { '/api': 'http://localhost:4000' }
+  },
+  build: {
+    outDir: 'dist',
+    minify: 'esbuild', // 或 terser
+    rollupOptions: {
+      input: '/src/main.js'
+    }
+  },
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
+})
+```
 
-- 集中管理前端构建工具的知识。
-- 作为个人项目配置、优化经验和技巧的参考。
-- 跟踪现代 JavaScript 构建生态的新特性和最佳实践。
+3. 核心概念
+  
+  # 模块处理
+  1. Webpack: 使用 loader 转换各种文件类型，例如：babel-loader → JS 转码、ts-loader → TypeScript、style-loader + css-loader → CSS等
+  2. Vite: 原生 ESM 加载，开发环境无需打包，构建时使用 Rollup 插件处理文件：JS/TS → esbuild 转译、Vue/React → 官方插件处理、CSS/SCSS → 内置支持或 PostCSS
+   
+  # 热更新
+  1. Webpack: HMR 通过 WebSocket 实现，浏览器刷新时自动请求更新模块
+  2. Vite: 原生 ESM + HMR，几乎瞬时刷新，无需刷新浏览器
+   
+4. 知识树
 
-> 🔧 “Forge” 表示将源码锻造成高效、可上线的生产文件，就像铁匠把原材料打造成工具一样。
+# webpack
+
+```
+Webpack
+├── 核心概念
+│   ├── entry/output
+│   ├── mode
+│   ├── module/loaders
+│   └── plugins
+├── DevServer
+│   ├── HMR
+│   └── Proxy
+├── 构建优化
+│   ├── Tree-shaking
+│   ├── 代码分割
+│   ├── 压缩
+│   └── 缓存
+├── 配置
+│   ├── resolve
+│   ├── alias
+│   └── externals
+├── 插件体系
+│   ├── HtmlWebpackPlugin
+│   ├── MiniCssExtractPlugin
+│   └── DefinePlugin
+└── Loader
+    ├── Babel
+    ├── TS
+    ├── CSS/SCSS
+    └── 文件类型
+```
+
+# vite
+
+```
+Vite
+├── 核心概念
+│   ├── DevServer (ESM)
+│   ├── Build (Rollup)
+│   └── HMR
+├── 配置
+│   ├── server
+│   ├── build
+│   ├── resolve/alias
+│   └── plugins
+├── 插件体系
+│   ├── 官方插件
+│   └── Rollup 社区插件
+├── 构建优化
+│   ├── Tree-shaking
+│   ├── 代码分割
+│   ├── 压缩
+│   └── 缓存
+└── 常用命令
+    ├── vite
+    ├── vite build
+    └── vite preview
+```

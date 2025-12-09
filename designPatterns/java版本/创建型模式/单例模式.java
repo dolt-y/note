@@ -1,11 +1,31 @@
-/**
- * 单例模式（Singleton Pattern）
- * 保证一个类仅有一个实例，并提供一个访问它的全局点。
- */
+public class SingletonPattern {
+    public static void main(String[] args) {
+        // Singleton singleton1 = new Singleton();
 
-/*  饿汉式  */
-public class Singleton {
-    private static final Singleton instance = new Singleton();
+        Singleton singleton1 = Singleton.getInstance();
+        Singleton singleton2 = Singleton.getInstance();
+        Singleton singleton3 = Singleton.getInstance();
+
+        System.out.println(singleton1.getNumber() + " " + singleton2.getNumber() + " " + singleton3.getNumber());
+
+        singleton1.setNumber(528);
+        System.out.println(singleton1.getNumber() + " " + singleton2.getNumber() + " " + singleton3.getNumber());
+
+    }
+}
+
+class Singleton {
+    private int number = 2022;
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    private static Singleton instance = new Singleton();
 
     private Singleton() {
     }
@@ -14,38 +34,3 @@ public class Singleton {
         return instance;
     }
 }
-
-/*  懒汉式  */
-public class Singleton {
-    private static Singleton instance = null;
-
-    private Singleton() {
-    }
-
-    public static synchronized Singleton getInstance() {
-        if (instance == null) {
-            instance = new Singleton();
-        }
-        return instance;
-    }
-}
-/*  双重检查锁定  */
-public class Singleton {
-    private static volatile Singleton instance;
-
-    private Singleton() {}
-
-    public static Singleton getInstance() {
-        if (instance == null) {
-            synchronized (Singleton.class) {
-                if (instance == null) {
-                    instance = new Singleton();
-                }
-            }
-        }
-        return instance;
-    }
-}
-
-
-
