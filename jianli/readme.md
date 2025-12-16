@@ -51,13 +51,22 @@ phone: 13811111111
 ---
 
 ## 个人项目
-### AI 工具平台
+
+### AI问答应用(deepseek大模型)
+ - 基于uniapp+vue3+vite+node.js+sqlite搭建的AI问答应用
+ - 项目整体分为 uniapp、H5、node.js三部分其中，uniapp为项目的登录入口页，AIH5页面通过webview嵌入。
+ - 项目实现功能：语音识别、AI问答、历史会话管理、模型切换、数据可视化（表格、图表）。
+ - 项目亮点：对接deepseek大模型，支持深度思考/快速问答，SSE流式渲染,采用rem方案响应式适配各种设备。支持语言转文本功能，后端模型采用whisper,分片上传。数据库采用sqlite,轻量化。
+
+### 基于elecrton实现的IM通信软件
+
+<!-- ### AI 工具平台
 - 提供录音转写、音频格式转换、文本总结等工具  
 - Node.js + Express + SQLite（轻量存储）
 
 ### 前端工程化工具
 - 自动构建脚本、打包流程、异常上报工具、日志收集  
-- Git Hook 规范化（Pre-commit、Lint、自动版本号）
+- Git Hook 规范化（Pre-commit、Lint、自动版本号） -->
 
 ---
 
