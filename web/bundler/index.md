@@ -21,13 +21,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
-  module: {                     // 模块处理
+  module: {                     // 模块处理 loader 对文件进行转换
     rules: [
       { test: /\.js$/, use: 'babel-loader' },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] }
     ]
   },
-  plugins: [                    // 插件
+  plugins: [                    // 插件 如压缩、分割代码等作用于 bundle
     new HtmlWebpackPlugin({ template: './index.html' })
   ],
   resolve: {                    // 解析
